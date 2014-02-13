@@ -45,7 +45,8 @@ module ImpressionistController
       query_params.reverse_merge!(
         :controller_name => controller_name,
         :action_name => action_name,
-        :user_id => user_id,
+        :media_user_id => media_user_id,
+        :contact_id => contact_id,
         :request_hash => @impressionist_hash,
         :session_hash => session_hash,
         :ip_address => request.remote_ip,
@@ -96,10 +97,16 @@ module ImpressionistController
     end
 
     #use both @current_user and current_user helper
-    def user_id
-      user_id = @current_user ? @current_user.id : nil rescue nil
-      user_id = current_user ? current_user.id : nil rescue nil if user_id.blank?
-      user_id
+    def media_user_id
+      media_user_id = @media_user ? @media_user.id : nil rescue nil
+      media_user_id = media_user ? media_user.id : nil rescue nil if media_user_id.blank?
+      media_user_id
+    end
+
+    def contact_id
+      contact_id = @contact ? @contact.id : nil rescue nil
+      contact_id = contact ? contact.id : nil rescue nil if contact_id.blank?
+      contact_id
     end
   end
 end
